@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.RestController;          //Contro
 import com.br.springjr.curso.entities.User;
 import com.br.springjr.curso.services.UserService;
 
+//caminho do recurso  no caso /users
+
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@RequestMapping(value = "/users")            // essa classe é um recurso web que é implementado por um contorlador rest.
+public class UserResource {        
 	@Autowired
 	private UserService service;
-	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
+	@GetMapping   //metodo que responde ao tipo get do http.
+	public ResponseEntity<List<User>> findAll(){//endpoint para acessar os usuários RenposeEntity. find all retorna todos
 		List<User> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
