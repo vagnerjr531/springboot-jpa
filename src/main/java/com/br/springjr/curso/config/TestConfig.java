@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.br.springjr.curso.entities.Order;
 import com.br.springjr.curso.entities.User;
+import com.br.springjr.curso.entities.enums.OrderStatus;
 import com.br.springjr.curso.repository.OrderRepository;
 import com.br.springjr.curso.repository.UserRepository;
 
@@ -29,8 +30,8 @@ public class TestConfig implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456"); 
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
-		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), u1); 
-		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), u2); //associação entre objetos;
+		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"),OrderStatus.PAID, u1); 
+		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"),OrderStatus.WAITYNG_PAYMENT, u2); //associação entre objetos;
 		 
 
 		userRepository.saveAllAndFlush(Arrays.asList(u1,u2));

@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;          //Controlador rest
 																		
-//Quando tem um objeto que ele vai poder ser injetado pelo spring, a classe vai ter que está registrada;
+									
 import com.br.springjr.curso.entities.Order;
 import com.br.springjr.curso.services.OrderService;
 
-//caminho do recurso  no caso /Orders
+																	//caminho do recurso  no caso /Orders
 
 @RestController
-@RequestMapping(value = "/orders")            // essa classe é um recurso web que é implementado por um contorlador rest.
+@RequestMapping(value = "/orders")           				 // essa classe é um recurso web que é implementado por um contorlador rest.
 public class OrderResource {        
 	@Autowired
 	private OrderService service;
-	@GetMapping   //metodo que responde ao tipo get do http.
-	public ResponseEntity<List<Order>> findAll(){//endpoint para acessar os usuários RenposeEntity. find all retorna todos
+	@GetMapping                       					 //metodo que responde ao tipo get do http.
+	public ResponseEntity<List<Order>> findAll(){			//endpoint para acessar os usuários RenposeEntity. find all retorna todos
 		List<Order> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
@@ -33,3 +33,7 @@ public class OrderResource {
 	}
 
 }
+/*
+Quando tem um objeto que ele vai poder ser injetado pelo spring, a classe vai ter que está registrada;
+
+*/
