@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.br.springjr.curso.entities.Category;
 import com.br.springjr.curso.entities.Order;
+import com.br.springjr.curso.entities.OrderItem;
 import com.br.springjr.curso.entities.Product;
 import com.br.springjr.curso.entities.User;
 import com.br.springjr.curso.entities.enums.OrderStatus;
@@ -30,7 +31,8 @@ public class TestConfig implements CommandLineRunner {
 	private OrderRepository orderRepository;
 	@Autowired
 	private ProductRepository productRepository;
-
+	@Autowired
+	private OrderItemRepository orderItemRepository;
    
 
 	@Override
@@ -53,7 +55,7 @@ public class TestConfig implements CommandLineRunner {
 		
 		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.PAID, u1);
 		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITYNG_PAYMENT, u2); // associação
-																									// entre
+		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"),OrderStatus.WAITYNG_PAYMENT,u1);																							// entre
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));																									// objetos;
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 		userRepository.saveAllAndFlush(Arrays.asList(u1, u2));
@@ -67,6 +69,13 @@ public class TestConfig implements CommandLineRunner {
 		p5.getCategories().add(cat2);
 		
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice()); 
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice()); 
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice()); 
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3));
 
 	}
 }
