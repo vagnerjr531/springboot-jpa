@@ -11,10 +11,15 @@ import org.springframework.context.annotation.Profile;
 import com.br.springjr.curso.entities.Category;
 import com.br.springjr.curso.entities.Order;
 import com.br.springjr.curso.entities.OrderItem;
+import com.br.springjr.curso.entities.Payment;
 import com.br.springjr.curso.entities.Product;
 import com.br.springjr.curso.entities.User;
 import com.br.springjr.curso.entities.enums.OrderStatus;
-import com.br.springjr.curso.repository.*;
+import com.br.springjr.curso.repository.CategoryRepository;
+import com.br.springjr.curso.repository.OrderItemRepository;
+import com.br.springjr.curso.repository.OrderRepository;
+import com.br.springjr.curso.repository.ProductRepository;
+import com.br.springjr.curso.repository.UserRepository;
 
 @Configuration
 @Profile("test")
@@ -76,7 +81,15 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3));
-
+		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T19:53:07Z"), o1);
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
+		
+	
+		
+	
 	}
 }
 
