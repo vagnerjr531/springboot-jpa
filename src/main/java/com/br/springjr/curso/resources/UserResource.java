@@ -17,6 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 //Quando tem um objeto que ele vai poder ser injetado pelo spring, a classe vai ter que está registrada;
 import com.br.springjr.curso.entities.User;
 import com.br.springjr.curso.services.UserService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 //caminho do recurso  no caso /users
 
@@ -51,6 +53,13 @@ public class UserResource {
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+		
+	}
+	@PutMapping(value  ="/{id}")
+	public ResponseEntity<User> update(@PathVariable Long id,@RequestBody User obj){
+		obj = service.update(id, obj);
+		return ResponseEntity.ok().body(obj);
+		
 		
 	}
 
