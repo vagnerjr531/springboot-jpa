@@ -1,14 +1,18 @@
 package com.br.springjr.curso.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;          //Controlador rest
-																		
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 //Quando tem um objeto que ele vai poder ser injetado pelo spring, a classe vai ter que está registrada;
 import com.br.springjr.curso.entities.User;
 import com.br.springjr.curso.services.UserService;
@@ -18,8 +22,11 @@ import com.br.springjr.curso.services.UserService;
 @RestController
 @RequestMapping(value = "/users")            // essa classe é um recurso web que é implementado por um contorlador rest.
 public class UserResource {        
+	
 	@Autowired
 	private UserService service;
+	
+	
 	@GetMapping   //metodo que responde ao tipo get do http.
 	public ResponseEntity<List<User>> findAll(){//endpoint para acessar os usuários RenposeEntity. find all retorna todos
 		List<User> list = service.findAll();
@@ -30,6 +37,13 @@ public class UserResource {
 	public ResponseEntity<User> findById(@PathVariable Long id){
 		User obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	@PostMapping
+	public ResponseEntity<User> insert(@RequestBody User obj){
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj);
+		
 	}
 
 }
